@@ -1,4 +1,4 @@
-package  py.edu.unasur.models;
+package  py.edu.unasur.resources;
 
 import java.util.List;
 
@@ -10,44 +10,38 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import py.edu.unasur.models.Alumno;
-import py.edu.unasur.services.AlumnoService;
+import py.edu.unasur.models.GastosArchivo;
 import py.edu.unasur.services.GastosArchivoService;
 
-@Path("alumno")
-public  class AlumnoResource {
+@Path("repository-example")
+public  class RepositoryExampleResource {
+    private final GastosArchivoService service;
 
-
-    private final AlumnoService service;
-
-    private final GastosArchivoService gastosArchivoService;
-
-    public AlumnoResource(AlumnoService service, GastosArchivoService gastosArchivoService){
-        this.gastosArchivoService = gastosArchivoService;
+    public RepositoryExampleResource(GastosArchivoService service){
         this.service = service;
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Alumno ejemploDeRepository(@PathParam("id")Integer id) {
-        return this.service.obtener(id);
+    public GastosArchivo ejemploDeRepository(@PathParam("id")Integer id) {
+        return this.service.obtenerUnArchivo(id);
     }
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void eliminarDatoArchivo(@PathParam("id")Integer id) {
-        this.service.eliminar(id);
+        this.service.eliminarArchivo(id);
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Alumno> listarDatosRepository() {
+    public List<GastosArchivo> listarDatosRepository() {
         return this.service.listar();
     }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response guardarDatoRepository(Alumno param) {
-            this.service.guardar(param);
+    public Response guardarDatoRepository(GastosArchivo param) {
+            this.service.guardarUnArhivo(param);
         return Response.ok().build();
     }
 
